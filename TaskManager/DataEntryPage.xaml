@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManager.DataEntryPage"
+             Title="New Task">
+    <Frame
+        BackgroundColor="#1e1f22"
+        Margin="15"
+        BorderColor="Transparent">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height = "0.1*" />
+                <RowDefinition Height = "0.1*" />
+                <RowDefinition Height = "0.1*"/>
+                <RowDefinition Height = "0.1*"/>
+                <RowDefinition Height = "0.1*"/>
+                <RowDefinition Height = "0.2*"/>
+                <RowDefinition Height = "0.2*" />
+            </Grid.RowDefinitions>
+            <Label 
+                TextColor="White"
+                Text="Выбери иконку" 
+                Grid.Row="0"/>
+            <HorizontalStackLayout
+                Grid.Row="1"
+                x:Name="Icons"/>
+            <Label 
+                TextColor="White"
+                Text="Название:" 
+                Grid.Row="2"/>
+            <Entry
+                x:FieldModifier="Public"
+                x:Name="TaskName"
+                TextColor="White"
+                BackgroundColor="#313338"
+                Grid.Row="3"
+                Placeholder ="Введите название"/>
+            <Label 
+                TextColor="White"
+                Text="Доп. информация:"
+                Grid.Row="4"/>
+            <Entry
+                x:FieldModifier="Public"
+                x:Name="TaskInfo"
+                TextColor="White"
+                BackgroundColor="#313338"
+                Grid.Row="5"
+                Placeholder ="Введите данные"/>
+            <Button
+                BackgroundColor="#23a559"
+                Grid.Row="6"
+                Clicked="Button_Clicked"/>
+        </Grid>
+    </Frame>
+</ContentPage>

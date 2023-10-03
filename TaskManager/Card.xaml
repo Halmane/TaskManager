@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManager.Card"
+             xmlns:local="clr-namespace:TaskManager">
+    <ContentView.BindingContext>
+        <local:CardViewModel IconPath="star.png" TaskInfo="" TaskName="" x:Name="VM" x:FieldModifier="Public"/>
+    </ContentView.BindingContext>
+    <Frame BackgroundColor="LightSlateGray"
+           Margin="15,0,15,15"
+           VerticalOptions="Start"
+           BorderColor="Transparent">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.15*" />
+                <ColumnDefinition Width="0.70*" />
+                <ColumnDefinition Width="0.15*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Source="{Binding IconPath}"
+                Grid.Column="0"
+                x:Name="Icon"
+                HeightRequest="80"
+                WidthRequest="80"/>
+            <VerticalStackLayout Grid.Column="1">
+                <Label Text = "{Binding TaskName}" TextColor="Black" FontSize="Medium" x:Name="TaskName"/>
+                <Label  Text = "{Binding TaskInfo}" TextColor="BlanchedAlmond" x:Name="TaskInfo"/>
+            </VerticalStackLayout>
+            <Button
+                Text="✓"
+                FontSize="Medium"
+                TextColor="Black"
+                BackgroundColor="#23a559"
+                CornerRadius="90"
+                Clicked="Button_Clicked"
+                Grid.Column="3"
+                HeightRequest="40"
+                WidthRequest="40"/>
+        </Grid>
+    </Frame>
+</ContentView>
