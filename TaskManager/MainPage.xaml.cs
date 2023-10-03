@@ -2,9 +2,18 @@
 
 public partial class MainPage : ContentPage
 {
+    private CardSQLiteController cardSQLiteController;
     public MainPage()
     {
         InitializeComponent();
+        cardSQLiteController = new CardSQLiteController("D:\\C#Project\\TaskManager\\Tasks.db");
+        var cards = cardSQLiteController.SelectCards();
+        foreach (var cardModel in cards)
+        {
+            var card = new Card(cardModel);
+            Tasks.Add(card);
+            card.Delete += DeleteTask;
+        }
     }
 
     public async void ClickedEventArgs(object sender, EventArgs e)
@@ -24,6 +33,7 @@ public partial class MainPage : ContentPage
         );
         if (result)
         {
+            cardSQLiteController.DeleteCard(card.VM.Card);
             Tasks.Remove(card);
             card.Delete -= DeleteTask;
         }
@@ -39,7 +49,9 @@ public partial class MainPage : ContentPage
         );
         if (result)
         {
-            var card = new Card(new CardModel(dataEntryWindow.Card.TaskName, dataEntryWindow.Card.TaskInfo, dataEntryWindow.Card.IconPath));
+            var cardModel = new CardModel(dataEntryWindow.Card.TaskName, dataEntryWindow.Card.TaskInfo, dataEntryWindow.Card.IconPath);
+            cardSQLiteController.InsertCard(cardModel);
+            var card = new Card(cardModel);
             Tasks.Add(card);
             card.Delete += DeleteTask;
             await Navigation.PopAsync();

@@ -6,38 +6,49 @@ namespace TaskManager;
 
 public class CardViewModel : INotifyPropertyChanged
 {
-    private CardModel _card = new CardModel("","","");
+    public CardModel Card { get; private set; } = new CardModel("", "", "");
 
     public string TaskName
     {
-        get { return _card.TaskName; }
+        get { return Card.TaskName; }
         set
         {
-            _card.TaskName = value;
+            Card.TaskName = value;
             OnPropertyChanged();
         }
     }
     public string TaskInfo
     {
-        get { return _card.TaskInfo; }
+        get { return Card.TaskInfo; }
         set
         {
-            _card.TaskInfo = value;
+            Card.TaskInfo = value;
             OnPropertyChanged();
         }
     } 
     public string IconPath
     {
-        get { return _card.IconPath; }
+        get { return Card.IconPath; }
         set
         {
-            _card.IconPath = value;
+            Card.IconPath = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public long Id
+    {
+        get { return Card.Id; }
+        set
+        {
+            Card.Id = value;
             OnPropertyChanged();
         }
     }
 
     public void Initialize(CardModel card)
     {
+        Id = card.Id;
         TaskName = card.TaskName;
         TaskInfo = card.TaskInfo;
         IconPath = card.IconPath;
