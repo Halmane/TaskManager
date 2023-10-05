@@ -1,13 +1,12 @@
 namespace TaskManager;
 
-public partial class DataEntryPage : ContentPage
+public partial class CardParametersInputPage : ContentPage
 {
     public CardModel Card {  get; private set; }
     private string _iconPath;
-    public delegate void DeleteThisDataEntryPage(DataEntryPage dataEntryPage);
-    public event DeleteThisDataEntryPage Delete;
+    public event Action<CardParametersInputPage> CloseAndSave;
 
-    public DataEntryPage()
+    public CardParametersInputPage()
     {
         InitializeComponent();
         IconsInitialize();
@@ -15,8 +14,8 @@ public partial class DataEntryPage : ContentPage
 
     public void Button_Clicked(object sender, EventArgs e)
     {
-        Delete.Invoke(this);
         Card = new CardModel(TaskName.Text, TaskInfo.Text, _iconPath);
+        CloseAndSave?.Invoke(this);
     }
 
     public void IconsInitialize()

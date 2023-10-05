@@ -3,13 +3,13 @@ using Microsoft.Data.Sqlite;
 
 namespace TaskManager;
 
-public class CardSQLiteController : IDisposable
+public class CardDatabase : IDisposable
 {
     private SqliteConnection _connection;
 
-    public CardSQLiteController(string path)
+    public CardDatabase(string path)
     {
-        _connection = new SqliteConnection($"Data Source={path}");
+        _connection = new SqliteConnection($"Data Source = {System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\{path}");
         _connection.Open();
     }
 

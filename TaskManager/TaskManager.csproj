@@ -55,16 +55,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Card.xaml.cs">
+	  <Compile Update="Card\Card.xaml.cs">
 	    <DependentUpon>Card.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Services\CardParametersInputPage.xaml.cs">
+	    <DependentUpon>CardParametersInputPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Card.xaml">
+	  <MauiXaml Update="Card\Card.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="DataEntryPage.xaml">
+	  <MauiXaml Update="Services\CardParametersInputPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -2,8 +2,7 @@ namespace TaskManager;
 
 public partial class Card : ContentView
 {
-    public delegate void DeleteThisTask(Card ñard);
-    public event DeleteThisTask Delete;
+    public event Action<Card> Delete;
 
     public Card(CardModel cardInfo)
 	{
@@ -13,6 +12,6 @@ public partial class Card : ContentView
 
     public void Button_Clicked(object sender, EventArgs e)
     {
-        Delete.Invoke(this);
+        Delete?.Invoke(this);
     }
 }

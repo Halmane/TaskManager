@@ -2,12 +2,12 @@
 
 public partial class MainPage : ContentPage
 {
-    private CardSQLiteController cardSQLiteController;
+    private CardDatabase _cardDatabase;
     public MainPage()
     {
         InitializeComponent();
-        cardSQLiteController = new CardSQLiteController("D:\\C#Project\\TaskManager\\Tasks.db");
-        var cards = cardSQLiteController.SelectCards();
+        _cardDatabase = new CardDatabase("Tasks.db");
+        var cards = _cardDatabase.SelectCards();
         foreach (var cardModel in cards)
         {
             var card = new Card(cardModel);
@@ -18,9 +18,9 @@ public partial class MainPage : ContentPage
 
     public async void ClickedEventArgs(object sender, EventArgs e)
     {
-        var dataEntryPage = new DataEntryPage();
-        dataEntryPage.Delete += DeleteDataEntryWindow;
-        await Navigation.PushAsync(dataEntryPage);
+        var cardParametersInputPage = new CardParametersInputPage();
+        cardParametersInputPage.CloseAndSave += CloseAndSave;
+        await Navigation.PushAsync(cardParametersInputPage);
     }
 
     public async void DeleteTask(Card card)
@@ -33,13 +33,13 @@ public partial class MainPage : ContentPage
         );
         if (result)
         {
-            cardSQLiteController.DeleteCard(card.VM.Card);
+            _cardDatabase.DeleteCard(card.VM.Card);
             Tasks.Remove(card);
             card.Delete -= DeleteTask;
         }
     }
 
-    public async void DeleteDataEntryWindow(DataEntryPage dataEntryWindow)
+    public async void CloseAndSave(CardParametersInputPage сardParametersInputPage)
     {
         bool result = await DisplayAlert(
             "Подтвердить действие",
@@ -49,8 +49,8 @@ public partial class MainPage : ContentPage
         );
         if (result)
         {
-            var cardModel = new CardModel(dataEntryWindow.Card.TaskName, dataEntryWindow.Card.TaskInfo, dataEntryWindow.Card.IconPath);
-            cardSQLiteController.InsertCard(cardModel);
+            var cardModel = new CardModel(сardParametersInputPage.Card.TaskName, сardParametersInputPage.Card.TaskInfo, сardParametersInputPage.Card.IconPath);
+            _cardDatabase.InsertCard(cardModel);
             var card = new Card(cardModel);
             Tasks.Add(card);
             card.Delete += DeleteTask;
