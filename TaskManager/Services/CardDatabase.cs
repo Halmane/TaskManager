@@ -11,6 +11,7 @@ public class CardDatabase : IDisposable
     {
         _connection = new SqliteConnection($"Data Source = {System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\{path}");
         _connection.Open();
+        _connection.Execute("CREATE TABLE IF NOT EXISTS TASK (Id INTEGER PRIMARY KEY AUTOINCREMENT, TaskName TEXT, TaskInfo TEXT, IconPath TEXT)");
     }
 
     public async void InsertCard(CardModel card)
